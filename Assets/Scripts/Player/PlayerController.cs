@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour {
         p_Velocity = Vector2.zero;
         cc_Rb = GetComponent<Rigidbody>();
     }
+
+    private void Start() {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     #endregion
 
     #region Main Updates
