@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     #region Editor Variables
@@ -56,7 +56,6 @@ public class PlayerController : MonoBehaviour {
 
         p_Velocity.Set(right, forward);
     }
-    #endregion
 
     private void FixedUpdate() {
         // Update the position of the player
@@ -66,14 +65,21 @@ public class PlayerController : MonoBehaviour {
         cc_Rb.angularVelocity = Vector3.zero;
 
         if (p_Velocity.sqrMagnitude > 0) {
-            float angleToRotCam = Mathf.Deg2Rad * Vector2.SignedAngle(Vector2.up, p_Velocity);
-            Vector3 camForward = m_CameraTransform.forward;
-            Vector3 newRot = new Vector3(
+            var angleToRotCam = Mathf.Deg2Rad * Vector2.SignedAngle(Vector2.up, p_Velocity);
+            var camForward = m_CameraTransform.forward;
+            var newRot = new Vector3(
                 Mathf.Cos(angleToRotCam) * camForward.x - Mathf.Sin(angleToRotCam) * camForward.z,
                 0,
                 Mathf.Cos(angleToRotCam) * camForward.z - Mathf.Sin(angleToRotCam) * camForward.x);
-            float theta = Vector3.SignedAngle(transform.forward, newRot, Vector3.up);
+            var theta = Vector3.SignedAngle(transform.forward, newRot, Vector3.up);
             cc_Rb.rotation = Quaternion.Slerp(cc_Rb.rotation, cc_Rb.rotation * Quaternion.Euler(0, theta, 0), 0.2f);
         }
     }
+    #endregion
+
+    #region Health/Dying Methods
+    public void DecreaseHealth(float amount) {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    #endregion
 }
