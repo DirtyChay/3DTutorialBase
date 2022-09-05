@@ -484,31 +484,6 @@ PrefabInstance:
       propertyPath: m_CameraTransform
       value: 
       objectReference: {fileID: 2127200028}
-    - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
-        type: 3}
-      propertyPath: m_Attacks.Array.data[0].m_Offset.x
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
-        type: 3}
-      propertyPath: m_Attacks.Array.data[0].m_Offset.y
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
-        type: 3}
-      propertyPath: m_Attacks.Array.data[0].m_Offset.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
-        type: 3}
-      propertyPath: m_Attacks.Array.data[1].m_Offset.x
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
-        type: 3}
-      propertyPath: m_Attacks.Array.data[1].m_Offset.y
-      value: 1.2
-      objectReference: {fileID: 0}
     - target: {fileID: 4446200618508890695, guid: 96bbb11643db0ec419fafffda8ceff22,
         type: 3}
       propertyPath: m_RootOrder
@@ -569,11 +544,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4446200618516667437, guid: 96bbb11643db0ec419fafffda8ceff22,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: abdc6315cf60f124eac0150e605e66ef, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96bbb11643db0ec419fafffda8ceff22, type: 3}
 --- !u!1001 &7904655458620259916
