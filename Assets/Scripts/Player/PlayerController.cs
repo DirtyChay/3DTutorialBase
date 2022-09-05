@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,9 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] [Tooltip("The transform of the camera following the player.")]
     private Transform m_CameraTransform;
+
+    [SerializeField] [Tooltip("A list of all attacks and information about them.")]
+    private PlayerAttackInfo[] m_Attacks;
     #endregion
 
     #region Cached Components
@@ -17,12 +21,26 @@ public class PlayerController : MonoBehaviour {
     #region Private Variables
     // The current move direction of the player. Does NOT include magnitude.
     private Vector2 p_Velocity;
+
+    // In order to do anything, we can't be frozen (timer must be 0).
+    private float p_FrozenTimer;
     #endregion
 
     #region Initialization
     private void Awake() {
         p_Velocity = Vector2.zero;
         cc_Rb = GetComponent<Rigidbody>();
+
+        p_FrozenTimer = 0;
+        for (int i = 0; i < m_Attacks.Length; i++) {
+            PlayerAttackInfo attack = m_Attacks[i];
+            attack.Cooldown = 0;
+
+            if (attack.WindUpTime > attack.FrozenTime) {
+                Debug.LogError(attack.AttackName +
+                               " has a windup time longer than the amount of time that the player is frozen for.");
+            }
+        }
     }
 
     private void Start() {
@@ -33,6 +51,32 @@ public class PlayerController : MonoBehaviour {
     #region Main Updates
     private void Update() {
         // Set how hard the player is pressing movement buttons
+        if (p_FrozenTimer > 0) {
+            p_Velocity = Vector2.zero;
+            p_FrozenTimer -= Time.deltaTime;
+            return;
+        }
+        else {
+            p_FrozenTimer = 0;
+        }
+
+        // Ability Use
+        for (int i = 0; i < m_Attacks.Length; i++) {
+            PlayerAttackInfo attack = m_Attacks[i];
+
+            if (attack.isReady()) {
+                if (Input.GetButtonDown(attack.Button)) {
+                    p_FrozenTimer = attack.FrozenTime;
+                    StartCoroutine(UseAttack(attack));
+                    break;
+                }
+            }
+            else if (attack.Cooldown > 0) {
+                attack.Cooldown -= Time.deltaTime;
+            }
+        }
+
+
         var forward = Input.GetAxis("Vertical");
         var right = Input.GetAxis("Horizontal");
 
@@ -80,6 +124,24 @@ public class PlayerController : MonoBehaviour {
     #region Health/Dying Methods
     public void DecreaseHealth(float amount) {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    #endregion
+
+    #region Attack Methods
+    private IEnumerator UseAttack(PlayerAttackInfo attack) {
+        cc_Rb.rotation = Quaternion.Euler(0, m_CameraTransform.eulerAngles.y, 0);
+        yield return new WaitForSeconds(attack.WindUpTime);
+
+        Vector3 offset = transform.forward * attack.Offset.z + transform.right * attack.Offset.x +
+                         transform.up * attack.Offset.y;
+
+        GameObject go = Instantiate(attack.AbilityGo, transform.position + offset, cc_Rb.rotation);
+
+        go.GetComponent<Ability>().Use(transform.position + offset);
+
+        yield return new WaitForSeconds(attack.Cooldown);
+
+        attack.ResetCooldown();
     }
     #endregion
 }
