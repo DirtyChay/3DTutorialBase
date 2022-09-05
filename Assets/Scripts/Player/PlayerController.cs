@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,11 @@ public class PlayerController : MonoBehaviour {
     private PlayerAttackInfo[] m_Attacks;
     #endregion
 
+    #region Cached References
+    private Animator cr_Anim;
+    private Renderer cr_Renderer;
+    #endregion
+
     #region Cached Components
     private Rigidbody cc_Rb;
     #endregion
@@ -24,12 +30,18 @@ public class PlayerController : MonoBehaviour {
 
     // In order to do anything, we can't be frozen (timer must be 0).
     private float p_FrozenTimer;
+
+    // The default color. Cached so we can switch between colors.
+    private Color p_DefaultColor;
     #endregion
 
     #region Initialization
     private void Awake() {
         p_Velocity = Vector2.zero;
         cc_Rb = GetComponent<Rigidbody>();
+        cr_Anim = GetComponent<Animator>();
+        cr_Renderer = GetComponentInChildren<Renderer>();
+        p_DefaultColor = cr_Renderer.material.color;
 
         p_FrozenTimer = 0;
         for (int i = 0; i < m_Attacks.Length; i++) {
@@ -79,6 +91,9 @@ public class PlayerController : MonoBehaviour {
 
         var forward = Input.GetAxis("Vertical");
         var right = Input.GetAxis("Horizontal");
+
+        // Updating the animation
+        cr_Anim.SetFloat("Speed", Mathf.Clamp01(Mathf.Abs(forward) + Math.Abs(right)));
 
         // Updating velocity
         var moveThreshold = 0.3f;
@@ -130,18 +145,34 @@ public class PlayerController : MonoBehaviour {
     #region Attack Methods
     private IEnumerator UseAttack(PlayerAttackInfo attack) {
         cc_Rb.rotation = Quaternion.Euler(0, m_CameraTransform.eulerAngles.y, 0);
+        cr_Anim.SetTrigger(attack.TriggerName);
+        IEnumerator toColor = ChangeColor(attack.AbilityColor, 10);
+        StartCoroutine(toColor);
         yield return new WaitForSeconds(attack.WindUpTime);
+
 
         Vector3 offset = transform.forward * attack.Offset.z + transform.right * attack.Offset.x +
                          transform.up * attack.Offset.y;
-
         GameObject go = Instantiate(attack.AbilityGo, transform.position + offset, cc_Rb.rotation);
-
         go.GetComponent<Ability>().Use(transform.position + offset);
 
+
+        StopCoroutine(toColor);
+        StartCoroutine(ChangeColor(p_DefaultColor, 50));
         yield return new WaitForSeconds(attack.Cooldown);
 
         attack.ResetCooldown();
+    }
+    #endregion
+
+    #region Misc Methods
+    private IEnumerator ChangeColor(Color newColor, float speed) {
+        Color curColor = cr_Renderer.material.color;
+        while (curColor != newColor) {
+            curColor = Color.Lerp(curColor, newColor, speed / 100);
+            cr_Renderer.material.color = curColor;
+            yield return null;
+        }
     }
     #endregion
 }

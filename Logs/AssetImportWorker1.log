@@ -267,3 +267,19 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 2024.980701 seconds.
+  path: Assets/Animations/Animations/Player/xbot@Jump.fbx
+  artifactKey: Guid(c41cba29b543ca54fab972f6ceabedec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Animations/Player/xbot@Jump.fbx using Guid(c41cba29b543ca54fab972f6ceabedec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e53c0cd354b393d6ce0bbf36d431f83') in 0.083291 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Animations/Animations/Player/xbot@Left Strafe.fbx
+  artifactKey: Guid(003f6e8c6fc978a49b2ca2537becf243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Animations/Player/xbot@Left Strafe.fbx using Guid(003f6e8c6fc978a49b2ca2537becf243) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8ef15dba1bd8e2f366a6e856c95891b') in 0.013864 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
