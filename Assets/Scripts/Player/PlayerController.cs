@@ -13,6 +13,12 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] [Tooltip("A list of all attacks and information about them.")]
     private PlayerAttackInfo[] m_Attacks;
+
+    [SerializeField] [Tooltip("Amount of health that the player starts with.")]
+    private int m_MaxHealth;
+
+    [SerializeField] [Tooltip("The HUD script.")]
+    private HUDController m_HUD;
     #endregion
 
     #region Cached References
@@ -33,6 +39,9 @@ public class PlayerController : MonoBehaviour {
 
     // The default color. Cached so we can switch between colors.
     private Color p_DefaultColor;
+
+    // Current amount of health.
+    private float p_CurHealth;
     #endregion
 
     #region Initialization
@@ -44,6 +53,7 @@ public class PlayerController : MonoBehaviour {
         p_DefaultColor = cr_Renderer.material.color;
 
         p_FrozenTimer = 0;
+        p_CurHealth = m_MaxHealth;
         for (int i = 0; i < m_Attacks.Length; i++) {
             PlayerAttackInfo attack = m_Attacks[i];
             attack.Cooldown = 0;
@@ -79,6 +89,7 @@ public class PlayerController : MonoBehaviour {
             if (attack.isReady()) {
                 if (Input.GetButtonDown(attack.Button)) {
                     p_FrozenTimer = attack.FrozenTime;
+                    DecreaseHealth(attack.HealthCost);
                     StartCoroutine(UseAttack(attack));
                     break;
                 }
@@ -138,7 +149,20 @@ public class PlayerController : MonoBehaviour {
 
     #region Health/Dying Methods
     public void DecreaseHealth(float amount) {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        p_CurHealth -= amount;
+        m_HUD.UpdateHealth(1.0f * p_CurHealth / m_MaxHealth);
+        if (p_CurHealth <= 0) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
+    public void IncreaseHealth(float amount) {
+        p_CurHealth += amount;
+        if (p_CurHealth > m_MaxHealth) {
+            p_CurHealth = m_MaxHealth;
+        }
+
+        m_HUD.UpdateHealth(1.0f * p_CurHealth / m_MaxHealth);
     }
     #endregion
 
@@ -172,6 +196,15 @@ public class PlayerController : MonoBehaviour {
             curColor = Color.Lerp(curColor, newColor, speed / 100);
             cr_Renderer.material.color = curColor;
             yield return null;
+        }
+    }
+    #endregion
+
+    #region Collision Methods
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("HealthPill")) {
+            IncreaseHealth(other.GetComponent<HealthPill>().HealthGain);
+            Destroy(other.gameObject);
         }
     }
     #endregion

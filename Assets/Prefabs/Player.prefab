@@ -124,6 +124,8 @@ MonoBehaviour:
     m_Cooldown: 2.5
     m_HealthCost: 1
     m_Color: {r: 0.9529412, g: 0.16078432, b: 0.16078432, a: 0}
+  m_MaxHealth: 50
+  m_HUD: {fileID: 0}
 --- !u!1 &4446200618509381613
 GameObject:
   m_ObjectHideFlags: 0
