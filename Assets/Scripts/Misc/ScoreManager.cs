@@ -18,6 +18,7 @@ public class ScoreManager : MonoBehaviour {
         else if (singleton != this) {
             Destroy(gameObject);
         }
+
         m_CurScore = 0;
     }
     #endregion
@@ -34,7 +35,7 @@ public class ScoreManager : MonoBehaviour {
             PlayerPrefs.SetInt("HS", m_CurScore);
             return;
         }
-        
+
         Debug.Log("Found the key, update if better.");
         int hs = PlayerPrefs.GetInt("HS");
         Debug.Log("Stored High Score is: " + hs + ", current score is: " + m_CurScore);
