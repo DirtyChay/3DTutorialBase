@@ -152,6 +152,7 @@ public class PlayerController : MonoBehaviour {
         p_CurHealth -= amount;
         m_HUD.UpdateHealth(1.0f * p_CurHealth / m_MaxHealth);
         if (p_CurHealth <= 0) {
+            ScoreManager.singleton.UpdateHighScore();
             SceneManager.LoadScene("MainMenu");
         }
     }
