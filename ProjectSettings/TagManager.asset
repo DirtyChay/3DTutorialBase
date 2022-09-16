@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - Spawn
   - ScoreManager
+  - HUD
   layers:
   - Default
   - TransparentFX
