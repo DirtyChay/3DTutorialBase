@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4937069203602000387}
   - component: {fileID: 1998668444248589479}
   - component: {fileID: 2565428546709318659}
-  - component: {fileID: 1910043247101095260}
   - component: {fileID: 1770382350760989694}
+  - component: {fileID: -5230549311106677593}
   m_Layer: 12
   m_Name: SuperNova
   m_TagString: AttackAbility
@@ -667,7 +667,7 @@ ParticleSystem:
     angle: 0
     length: 10
     boxThickness: {x: 0, y: 0, z: 0}
-    radiusThickness: 1
+    radiusThickness: 0.4
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
@@ -750,7 +750,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.4
+      value: 5
       mode: 0
       spread: 0
       speed:
@@ -4911,21 +4911,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &1910043247101095260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079130302970629889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429828f6d99b6d240852b53655798375, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Info:
-    m_Power: 5
-    m_Range: 25
 --- !u!114 &1770382350760989694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4939,3 +4924,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TimeToDestruction: 4
+--- !u!114 &-5230549311106677593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079130302970629889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792c5033b6cf51441a1111e914f41e9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Info:
+    m_Power: 5
+    m_Range: 5
