@@ -1298,8 +1298,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
         type: 3}
-      propertyPath: m_Attacks.Array.data[2].m_Cooldown
+      propertyPath: m_Attacks.Array.data[0].m_Cooldown
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
+        type: 3}
+      propertyPath: m_Attacks.Array.data[1].m_Cooldown
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
+        type: 3}
+      propertyPath: m_Attacks.Array.data[2].m_Cooldown
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
         type: 3}
@@ -1322,6 +1332,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1079130302970629889, guid: 37b64224ec355b5439fbf3c2ddff5e66,
         type: 3}
+    - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
+        type: 3}
+      propertyPath: m_Attacks.Array.data[0].m_FrozenTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
+        type: 3}
+      propertyPath: m_Attacks.Array.data[0].m_WindUpTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
+        type: 3}
+      propertyPath: m_Attacks.Array.data[1].m_FrozenTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3181849465166163812, guid: 96bbb11643db0ec419fafffda8ceff22,
         type: 3}
       propertyPath: m_Attacks.Array.data[2].m_FrozenTime
