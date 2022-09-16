@@ -185,8 +185,7 @@ public class PlayerController : MonoBehaviour {
         StopCoroutine(toColor);
         StartCoroutine(ChangeColor(p_DefaultColor, 50));
         /* UI change here */
-        m_HUD.UpdateCDBars(1);
-        GameObject.FindGameObjectWithTag("HUD").GetComponent<CooldownTime>().SetCD(attack.AttackName);
+        m_HUD.SetCD(attack.AttackName);
         /* UI change end */
         yield return new WaitForSeconds(attack.Cooldown);
 
