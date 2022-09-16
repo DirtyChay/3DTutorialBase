@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,4 +37,4 @@ public class CooldownTime : MonoBehaviour {
         Debug.Log(attackName + " cooldown started.");
         activeTimer[attackName] = cooldownTime[attackName];
     }
-}
+}*/

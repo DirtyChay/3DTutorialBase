@@ -29,7 +29,8 @@ public class HUDController : MonoBehaviour {
     
     private Dictionary<string, float> cooldownTime;
     private Dictionary<string, float> activeTimer;
-    private String[] p_AttackNames;
+    private PlayerAttackInfo[] attacks;
+    private List<string> p_Names;
     #endregion
 
     #region Intialization
@@ -41,12 +42,21 @@ public class HUDController : MonoBehaviour {
     }
 
     private void Start() {
-        PlayerAttackInfo[] attacks = m_Player.GetComponent<PlayerController>().m_Attacks;
-        foreach (var attack in attacks) {
-            cooldownTime[attack.AttackName] = attack.Cooldown;
-            activeTimer[attack.AttackName] = 0;
-            Debug.Log(attack.AttackName);
+        cooldownTime = new Dictionary<string, float>();
+        activeTimer = new Dictionary<string, float>(); 
+        attacks = m_Player.GetComponent<PlayerController>().Attacks;
+        p_Names = new List<string>();
+
+        foreach (var info in attacks) {
+            cooldownTime[info.AttackName] = info.CooldownTimer;
+            activeTimer[info.AttackName] = info.Cooldown;
+            p_Names.Add(info.AttackName);
+            Debug.Log(info.AttackName);
+            Debug.Log(info.CooldownTimer);
+            Debug.Log(info.Cooldown);
         }
+        
+        
     }
     #endregion
     
@@ -58,15 +68,19 @@ public class HUDController : MonoBehaviour {
     
     #region Update CD Bars
     private void UpdateCDBars() {
-        m_Laser.sizeDelta = new Vector2(p_LaserOrigWidth * ((activeTimer["Laser"] / cooldownTime["Laser"])), m_Laser.sizeDelta.y);
-        m_MegaLaser.sizeDelta = new Vector2(p_MegaLaserOrigWidth * (activeTimer["MegaLaser"] / cooldownTime["MegaLaser"]), m_MegaLaser.sizeDelta.y);
-        m_SuperNova.sizeDelta = new Vector2(p_SuperNovaOrigWidth * (activeTimer["SuperNova"] / cooldownTime["SuperNova"]), m_SuperNova.sizeDelta.y);
+        // float laser_percent = 1.0f * (cooldownTime["Laser"] - activeTimer["Laser"]) / cooldownTime["Laser"];
+        float laser_percent = 1.0f * (activeTimer["Laser"] / cooldownTime["Laser"]);
+        float mega_laser_percent = 1.0f * (activeTimer["MegaLaser"] / cooldownTime["MegaLaser"]);
+        float super_nova_percent = 1.0f * (activeTimer["SuperNova"] / cooldownTime["SuperNova"]);
+        m_Laser.sizeDelta = new Vector2(p_LaserOrigWidth * laser_percent, m_Laser.sizeDelta.y);
+        m_MegaLaser.sizeDelta = new Vector2(p_MegaLaserOrigWidth * mega_laser_percent, m_MegaLaser.sizeDelta.y);
+        m_SuperNova.sizeDelta = new Vector2(p_SuperNovaOrigWidth * super_nova_percent, m_SuperNova.sizeDelta.y);
     }
     #endregion
     
     #region Update
     void Update() {
-        foreach (string name in activeTimer.Keys) {
+        foreach (string name in p_Names) {
             if (activeTimer[name] > 0) {
                 var newtime = activeTimer[name] - Time.deltaTime;
                 if (newtime <= 0) {
@@ -80,8 +94,8 @@ public class HUDController : MonoBehaviour {
         UpdateCDBars();
     }
     public void SetCD(string attackName) {
-        Debug.Log(attackName + " cooldown started.");
         activeTimer[attackName] = cooldownTime[attackName];
+        Debug.Log(attackName + ": " + activeTimer[attackName] + " left on cd");
     }
     #endregion
 }

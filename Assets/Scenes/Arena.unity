@@ -237,6 +237,7 @@ MonoBehaviour:
   m_Laser: {fileID: 1440486013}
   m_MegaLaser: {fileID: 1957855704}
   m_SuperNova: {fileID: 629237794}
+  m_Player: {fileID: 1612243362}
 --- !u!114 &189985901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1160,6 +1161,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535255248}
   m_CullTransparentMesh: 1
+--- !u!1 &1612243362 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4446200618509381223, guid: 96bbb11643db0ec419fafffda8ceff22,
+    type: 3}
+  m_PrefabInstance: {fileID: 4446200618280242247}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1957855703
 GameObject:
   m_ObjectHideFlags: 0

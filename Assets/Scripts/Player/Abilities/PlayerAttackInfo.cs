@@ -56,6 +56,10 @@ public class PlayerAttackInfo {
 
     [SerializeField] [Tooltip("How long the player has to wait before this ability can be used again.")]
     private float m_Cooldown;
+    
+    public float CooldownTimer {
+        get { return m_Cooldown; }
+    }
 
     [SerializeField] [Tooltip("The amount of health this ability costs.")]
     private int m_HealthCost;

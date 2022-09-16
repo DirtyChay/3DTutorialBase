@@ -12,7 +12,11 @@ public class PlayerController : MonoBehaviour {
     private Transform m_CameraTransform;
 
     [SerializeField] [Tooltip("A list of all attacks and information about them.")]
-    public PlayerAttackInfo[] m_Attacks;
+    private PlayerAttackInfo[] m_Attacks;
+    
+    public PlayerAttackInfo[] Attacks {
+        get { return m_Attacks; }
+    }
 
     [SerializeField] [Tooltip("Amount of health that the player starts with.")]
     private int m_MaxHealth;
