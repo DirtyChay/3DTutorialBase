@@ -87,7 +87,7 @@ public class HUDController : MonoBehaviour {
                     activeTimer[name] = 0;
                 }
                 else {
-                    activeTimer[name] = (float)System.Math.Round((double)newtime, 2);
+                    activeTimer[name] = newtime;
                 }
             }
         }
